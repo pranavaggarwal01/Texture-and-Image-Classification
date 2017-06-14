@@ -20,7 +20,7 @@ double setTreshold(int , int );
 int main(int argc, char *argv[])
 
 {
-  
+  //Reading file
 
   Mat vehical1 = cv::imread(argv[1],CV_LOAD_IMAGE_COLOR); //loading the images
   Mat vehical2 = cv::imread(argv[2],CV_LOAD_IMAGE_COLOR);
@@ -38,12 +38,14 @@ int main(int argc, char *argv[])
   cv::Ptr<Feature2D> feature_surf = xfeatures2d::SURF::create();
   std::vector<KeyPoint> keypoints_1, keypoints_2, selected_keypoints1, selected_keypoints2;    
 
-  Mat descriptors_1, descriptors_2;    
+  Mat descriptors_1, descriptors_2;
+  // Finfing the keypoints and descriptors    
   feature_surf->detectAndCompute(vehical1, cv::noArray(), keypoints_1,descriptors_1, false);
   feature_surf->detectAndCompute(vehical2, cv::noArray(), keypoints_2,descriptors_2, false);
   double min, max;
   int min_loc;
   int count = 0;
+  //will compare the best 25 features
   int best_des1[25];
   int best_des2[25];
   Mat dist_bet_des(descriptors_2.rows,1, CV_32FC1);
@@ -80,7 +82,6 @@ int main(int argc, char *argv[])
 
   Mat selected_des1(25, 128,CV_32FC1);
   Mat selected_des2(25, 128,CV_32FC1);
-  //printf("rrrrrrrr\n");
   for (int i = 0; i < 25; i++)
   {
     for (int j = 0; j < 128; j++)
@@ -93,7 +94,6 @@ int main(int argc, char *argv[])
     
   }
 
-  //printf("rrrrrrrr\n");
 
   BFMatcher bf_obj(NORM_L2  , true); //using BruteForce to match the images
   vector< DMatch > matches;
@@ -106,6 +106,7 @@ int main(int argc, char *argv[])
 
   //std::cout << descriptors_1;
 
+  //will mark the keypoints
   drawKeypoints(vehical1, keypoints_1, vehical1_edges, Scalar::all(-1), DrawMatchesFlags::DEFAULT );
   drawKeypoints(vehical2, keypoints_2, vehical2_edges, Scalar::all(-1), DrawMatchesFlags::DEFAULT );
   imshow("keypoints_1",vehical1_edges);
@@ -114,12 +115,14 @@ int main(int argc, char *argv[])
   //vector<Dmatch>::const_iterator first = matches.begin();
   //vector<Dmatch>::const_iterator last = matches.begin() + 10;
   //vector<DMatch> matches_count(matches.begin(), matches.begin() + 10);  
+  // will draw the matches
   drawMatches(vehical1, keypoints_1, vehical2, keypoints_2, matches, rav_matches2, Scalar::all(-1));  
   imshow("matches",rav_matches2);
   imwrite("all_matches_surf.png",rav_matches2);
 
 
   //drawing only the important 25 matches
+  // Formating the visualization of the images
   if (vehical1.rows > vehical2.rows)
   {
     cv::Mat mat_temp1(vehical1.rows - vehical2.rows,vehical2.cols,CV_8UC3);
