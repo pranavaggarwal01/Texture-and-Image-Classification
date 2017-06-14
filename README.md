@@ -10,16 +10,8 @@ libraries used – OpenCV 3.1.0
 	      - extended libraries from opencv_contrib_master for xfeatures2D for SIFT and SURF.
 Matlab is used for Problem 1a to plot the sample after PCA.
 
-For Problem 3
-Programmed in MATLAB R2016a.
-Operating System – Windows 10
-OS type – 64 bit
-Toolboxes downloaded from https://github.com/pdollar/edges and https://github.com/pdollar/toolbox
-
 Important Notes:
 - The folder Texture Classification will contain 3 more folders named Images1 ,Images2 and filtered_images. For Images1 and Image2 each has 4 folders Type1, Type2, Type3 and Type4. This for problem 1a where after the program is executed the textures will automatically will put in their respective folders. Image1 is for 25 dimention feature space and Image2 is for 3 dimenstion after PCA. Care has to be taken to delete the image files in the folders before new execution of the code. The filtered_images folder is used in Problem 1b to save all the 25 filtered images.
-- The folder Edge_detection will have a folder called as Edges and this is the folder having the toolboxes got online for the execution of the performance evaluation code. The Edges folder needs to be added in the path where the matlab code will be by first moving the foder to the path and then using the Matlab interface to right click the folder Edge --> Add to path --> All folders and subfolders.
-
 
 --Before exection of individual files for Texture Classification and Vehicle Classification in C++ in their respective folders, first call the CMakeLists.txt and make the make files and compile the codes by doing the following steps
 cmake .
@@ -100,8 +92,4 @@ The user needs to enter the filename image_name
 To execute
 ./P2c_surf rav4_2.jpg 
 
-For Problem 3
-Please implement plot_PCA_points.m, Problem3_Canny.m, Problem3_SE_Zebra.m and Problem3_SE_Jaguar.m in Matlab IDE such as Matlab R2016a is what i used. Only press the run button to execute the programs and also follow the instructions given above regarding adding the Edges folder to the directory and adding its path to the program.
---The get_matrix.m is used to convert .raw file to matrix.
---For finding the F- measure I have used the edgesDemo.m file from github as it was instructed by TA
 
